@@ -1,3 +1,7 @@
 SUBDIRS = \
-	man \
-	src
+	debugutil \
+	miscutil \
+	parsecommon \
+	pingtool \
+	portability \
+	toolcommon

@@ -1,7 +1,22 @@
+/*
+ * Copyright (C) 2003-2014 FreeIPMI Core Team
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
 /*****************************************************************************\
- *  $Id: ipmi-fru-chassis-types-spec.h,v 1.3 2008/03/28 00:14:54 chu11 Exp $
- *****************************************************************************
- *  Copyright (C) 2007-2008 Lawrence Livermore National Security, LLC.
+ *  Copyright (C) 2007-2014 Lawrence Livermore National Security, LLC.
  *  Copyright (C) 2007 The Regents of the University of California.
  *  Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
  *  Written by Albert Chu <chu11@llnl.gov>
@@ -13,7 +28,7 @@
  *
  *  Ipmi-fru is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by the
- *  Free Software Foundation; either version 2 of the License, or (at your
+ *  Free Software Foundation; either version 3 of the License, or (at your
  *  option) any later version.
  *
  *  Ipmi-fru is distributed in the hope that it will be useful, but
@@ -22,12 +37,11 @@
  *  for more details.
  *
  *  You should have received a copy of the GNU General Public License along
- *  with Ipmi-fru; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA.
+ *  with Ipmi-fru.  If not, see <http://www.gnu.org/licenses/>.
 \*****************************************************************************/
 
-#ifndef _IPMI_FRU_CHASSIS_TYPES_SPEC_H
-#define	_IPMI_FRU_CHASSIS_TYPES_SPEC_H
+#ifndef IPMI_FRU_CHASSIS_TYPES_SPEC_H
+#define IPMI_FRU_CHASSIS_TYPES_SPEC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,6 +54,9 @@ extern "C" {
  *
  * Not in IPMI spec.  In "Platform Management FRU Information Storage
  * Definition" document.
+ *
+ * Starting w/ FRU Revision 1.2, this table is defined by SMBIOS
+ * specification, Table 16 - "System Enclosure or Chassis Types"
  */
 
 #define IPMI_FRU_CHASSIS_TYPE_OTHER                 0x01
@@ -65,10 +82,17 @@ extern "C" {
 #define IPMI_FRU_CHASSIS_TYPE_PERIPHERAL_CHASSIS    0x15
 #define IPMI_FRU_CHASSIS_TYPE_RAID_CHASSIS          0x16
 #define IPMI_FRU_CHASSIS_TYPE_RACK_MOUNT_CHASSIS    0x17
+#define IPMI_FRU_CHASSIS_TYPE_SEALED_CASE_PC        0x18
+#define IPMI_FRU_CHASSIS_TYPE_MULTI_SYSTEM_CHASSIS  0x19
+#define IPMI_FRU_CHASSIS_TYPE_COMPACT_PCI           0x1A
+#define IPMI_FRU_CHASSIS_TYPE_ADVANCED_TCA          0x1B
+#define IPMI_FRU_CHASSIS_TYPE_BLADE                 0x1C
+#define IPMI_FRU_CHASSIS_TYPE_BLADE_ENCLOSURE       0x1D
 
+/* To avoid gcc warnings, add +1 in comparison */
 #define IPMI_FRU_CHASSIS_TYPE_VALID(__chassis_type) \
-        (((__chassis_type) >= IPMI_FRU_CHASSIS_TYPE_OTHER \
-          && (__chassis_type) <= IPMI_FRU_CHASSIS_TYPE_RACK_MOUNT_CHASSIS) ? 1 : 0)
+  (((__chassis_type + 1) >= (IPMI_FRU_CHASSIS_TYPE_OTHER + 1) \
+    && (__chassis_type) <= IPMI_FRU_CHASSIS_TYPE_BLADE_ENCLOSURE) ? 1 : 0)
 
 extern const char *const ipmi_fru_chassis_types[];
 
@@ -76,4 +100,4 @@ extern const char *const ipmi_fru_chassis_types[];
 }
 #endif
 
-#endif /* _IPMI_FRU_CHASSIS_TYPES_SPEC_H */
+#endif /* IPMI_FRU_CHASSIS_TYPES_SPEC_H */
